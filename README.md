@@ -4,6 +4,9 @@
 
 - [在线网页](https://ceelog.github.io/DictionaryByGPT4/index.html)
 
+- [Vue-demo](https://ceelog.github.io/DictionaryByGPT4/vue-demo.html)
+
+
 ## 前言
 
 以 ChatGPT 为代表的大语言模型在文本生成领域展示出来的强大能力让人们惊呼通用人工智能（AGI）即将降临，AI 将吞噬整个世界。

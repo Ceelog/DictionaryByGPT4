@@ -206,7 +206,7 @@
                         dictionaries.value = JSON.parse(cachedDictionaries);
                     } else {
                         try {
-                            const response = await fetch('/json/catalog.json');
+                            const response = await fetch('./json/catalog.json');
                             if (!response.ok) {
                                 throw new Error('Network response was not ok');
                             }
@@ -235,7 +235,7 @@
                         dictionaryDetails.value = JSON.parse(cachedDetails);
                     } else {
                         try {
-                            const response = await fetch(`/json/${selectedDictionary.value}`);
+                            const response = await fetch(`./json/${selectedDictionary.value}`);
                             if (!response.ok) {
                                 throw new Error('Network response was not ok');
                             }
