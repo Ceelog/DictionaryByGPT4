@@ -1,8 +1,12 @@
 ## 快速开始
 
+- [电子书 EPUB 下载](<./威威的GPT单词本(8000词).epub>)
+
 - [PDF 下载](<./威威的GPT单词本(8000词).pdf>)
 
 - [在线网页](https://ceelog.github.io/DictionaryByGPT4/index.html)
+
+- [JSON 数据](./gptwords.json)
 
 ## 前言
 
