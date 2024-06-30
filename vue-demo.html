@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GPT❤️Words</title>
+    <script src="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M/vue/3.2.31/vue.global.prod.min.js"></script>
+    <style>
+        
+        * {
+            margin: 0;
+            padding: 0;
+            border: none;
+            outline: none;
+            box-sizing: border-box;
+            background: transparent;
+            text-decoration: none;
+            list-style: none;
+            color: #000000;
+        }
+        html {
+            font-size: 16px;
+        }
+
+        body {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            font-family: "lucida grande", "lucida sans unicode", lucida, helvetica, "Hiragino Sans GB", "Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif;
+        }
+        .full {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+
+            background: linear-gradient(-45deg, #c4d7d6, #f9f4dc, #f6dcce, #fff);
+            background-size: 500% 500%;
+            animation: gradient 60s ease infinite;
+        }
+
+        .title{
+            font-weight: bold;
+
+        }
+
+
+        .split {
+            border-bottom: 1px dashed #585858;
+            padding: 0.5rem 0;
+        }
+
+        .loading {
+            padding: 0.5rem 0;
+
+        }
+        .button {
+            padding: 0.5rem 0.65rem;
+        }
+        .card {
+            display: block;
+            padding: 2rem;
+            width: 24rem;
+            overflow: auto;
+            min-width: 18rem;
+            max-width: calc(100vw - 2rem);
+            max-height: calc(100vh - 10rem);
+            background-color: #ffffff;
+            box-shadow: 0 0px 5px rgba(0, 0, 0, .2);
+        }
+
+        .input {
+            font-size: 1rem;
+            padding: .25rem;
+            border: 1px solid #585858;
+        }
+
+        
+
+        li {
+            padding: 0.5rem 0;
+            border-bottom: 1px dashed #000000;
+            margin-top: 0.25rem;
+            cursor: pointer;
+        }
+
+        .title {
+            font-weight: bold;
+            font-size: 1rem;
+            margin: 0.5rem 0;
+            background: #e4f3f3;
+            padding: 0.5rem 0;
+        }
+
+        .big-title {
+            display: flex;
+            align-items: center;
+            margin-right: 0.5rem;
+            font-size: 1.5rem;
+        }
+        .big-title .icon {
+            margin-left: 0.25rem;
+        }
+
+        .pointer {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .icon {
+            display: inline-block;
+            width: 2rem;
+            height: 2rem;
+        }
+
+        .space {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: none;
+            
+        }
+
+        @keyframes gradient {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app" class="full">
+        <div class="card">
+            
+            <div class="space split" v-if="!currentWordDetails">
+                <h3>GPT❤️Words</h3>
+                <select class="title pointer" v-model="selectedDictionary" @change="loadDictionaryDetails" title="选择词典">
+                    <option v-for="dict in dictionaries" :value="dict[0]">{{ dict[1] }}</option>
+                </select>
+            </div>
+            
+            <div v-if="loading" class="loading">正在加载...</div>
+
+            <div class="content" v-if="showWordList && wordList.length > 0 && !loading">
+                <ul>
+                    <li class="space" v-for="word in wordList" @click="showWordDetails(word)">
+                        <span>{{ word }}</span>
+                        <span>></span>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="content" v-if="currentWordDetails">
+                <div>
+                    <div class=" title space ">
+                        <p class="big-title">
+                            {{ currentWord }}
+                            <span class="pointer" @click="play(currentWord)"><svg class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="11279" width="200" height="200"><path d="M215.3 674.6c-38.9 0-75.9-10.4-104.1-29.3-30.6-20.5-47.5-48.5-47.5-78.9V458c0-30.3 16.9-58.3 47.5-78.9 28.2-18.9 65.1-29.3 104.1-29.3 11 0 20 9 20 20s-9 20-20 20c-30.6 0-60.4 8.2-81.8 22.5-19.2 12.9-29.8 29.1-29.8 45.6v108.4c0 16.6 10.6 32.8 29.8 45.6 21.4 14.3 51.2 22.5 81.8 22.5 11 0 20 9 20 20s-9 20.2-20 20.2z" fill="#333333" p-id="11280"></path><path d="M554.3 194.2c15.3 0 31.9 11 31.9 28.9v575.4c0 17.8-16.5 28.9-31.9 28.9-5.4 0-10.7-1.3-15.7-3.9l-265-137.3c-9.9-5.1-16-14.7-16-25V365.1c0-10.1 6-19.6 15.6-24.8l265-142c5.1-2.7 10.5-4.1 16.1-4.1m0-40c-11.7 0-23.6 2.8-35 8.9l-265 142c-22.7 12.2-36.7 35.1-36.7 60v296.1c0 25.2 14.4 48.5 37.6 60.5l265 137.3c11.1 5.8 22.7 8.4 34.1 8.4 37.6 0 71.9-28.9 71.9-68.9V223.1c0-40.1-34.3-68.9-71.9-68.9z" fill="#333333" p-id="11281"></path><path d="M705.3 706c-7.1 0-14-3.8-17.6-10.5-5.2-9.7-1.6-21.9 8.1-27.1 59.1-31.9 95.8-91 95.8-154.2 0-66.2-39.3-126.6-102.5-157.7-9.9-4.9-14-16.9-9.1-26.8 4.9-9.9 16.9-14 26.8-9.1 77 37.8 124.8 112 124.8 193.6 0 39.2-11.2 77.7-32.4 111.3-20.4 32.4-49.6 59.4-84.4 78.2-3.1 1.5-6.3 2.3-9.5 2.3z" fill="#00D8A0" p-id="11282"></path><path d="M797.6 797.9c-6.7 0-13.3-3.4-17.1-9.6-5.8-9.4-2.8-21.7 6.6-27.5 82.4-50.5 133.6-144.6 133.6-245.6 0-105.7-54.7-201.9-142.8-251-9.6-5.4-13.1-17.6-7.7-27.2 5.4-9.6 17.6-13.1 27.2-7.7 100.7 56.2 163.3 165.8 163.3 286 0 57.6-14.5 114.1-42 163.5-26.7 48.1-65 88.3-110.7 116.2-3.2 1.9-6.8 2.9-10.4 2.9z" fill="#00D8A0"></path></svg></span>
+                        </p>
+                        <span class="pointer "  @click="rememberWord">
+                            <svg class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="10010" width="200" height="200"><path d="M512 512m-512 0a512 512 0 1 0 1024 0 512 512 0 1 0-1024 0Z" fill="#07C160" opacity=".1" p-id="10011"></path><path d="M237.714286 514.486857l58.971428-47.652571 133.302857 104.941714s165.504-195.456 342.308572-297.490286l13.988571 32.768S567.808 505.179429 467.84 749.714286z" fill="#07C160" p-id="10012"></path></svg>
+                        </span>
+                    </div>
+                    <div class="part" v-for="(part, index1) in currentWordDetails">
+                        <div :class={title:index2==0}  v-for="(line, index2) in part">
+                            <p >{{ line }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    <script>
+        const { createApp, ref, onMounted } = Vue;
+
+        createApp({
+            setup() {
+                const dictionaries = ref([]);
+                const selectedDictionary = ref('');
+                const dictionaryDetails = ref(null);
+                const loading = ref(true);
+                const wordList = ref([]);
+                const currentWord = ref(null);
+                const currentWordDetails = ref(null);
+                const showWordList = ref(true);
+
+                const loadDictionaries = async () => {
+                    loading.value = true;
+                    const cachedDictionaries = localStorage.getItem('dictionaries');
+                    if (cachedDictionaries) {
+                        dictionaries.value = JSON.parse(cachedDictionaries);
+                    } else {
+                        try {
+                            const response = await fetch('/json/catalog.json');
+                            if (!response.ok) {
+                                throw new Error('Network response was not ok');
+                            }
+                            dictionaries.value = await response.json();
+                            localStorage.setItem('dictionaries', JSON.stringify(dictionaries.value));
+                        } catch (error) {
+                            console.error('There was a problem with the fetch operation:', error);
+                        }
+                    }
+                    loading.value = false;
+                };
+
+                const loadSelection = () => {
+                    const cachedSelection = localStorage.getItem('selectedDictionary');
+                    if (cachedSelection) {
+                        selectedDictionary.value = cachedSelection;
+                    } else if (dictionaries.value.length > 0) {
+                        selectedDictionary.value = dictionaries.value[0][0];
+                    }
+                };
+
+                const loadDictionaryDetails = async () => {
+                    loading.value = true;
+                    const cachedDetails = localStorage.getItem(`dictionaryDetails-${selectedDictionary.value}`);
+                    if (cachedDetails) {
+                        dictionaryDetails.value = JSON.parse(cachedDetails);
+                    } else {
+                        try {
+                            const response = await fetch(`/json/${selectedDictionary.value}`);
+                            if (!response.ok) {
+                                throw new Error('Network response was not ok');
+                            }
+                            dictionaryDetails.value = await response.json();
+                            localStorage.setItem(`dictionaryDetails-${selectedDictionary.value}`, JSON.stringify(dictionaryDetails.value));
+                        } catch (error) {
+                            console.error('There was a problem with the fetch operation:', error);
+                        }
+                    }
+                    generateWordList();
+                    loading.value = false;
+                };
+
+                const generateWordList = () => {
+                    if (dictionaryDetails.value) {
+                        const history = JSON.parse(localStorage.getItem('history') || '[]');
+                        const historyKeys = history.map(item => item.key);
+                        const keys = Object.keys(dictionaryDetails.value).filter(key => !historyKeys.includes(key));
+                        wordList.value = keys.sort(() => 0.5 - Math.random()).slice(0, 10);
+                    }
+                };
+
+                const showWordDetails = (word) => {
+                    const detail = dictionaryDetails.value[word]
+                    currentWord.value = detail.shift()[0]
+                    currentWordDetails.value = detail;
+                    showWordList.value = false;
+                };
+
+                const rememberWord = () => {
+                    const history = JSON.parse(localStorage.getItem('history') || '[]');
+                    history.push(currentWordDetails.value);
+                    localStorage.setItem('history', JSON.stringify(history));
+                    currentWordDetails.value = null;
+                    showWordList.value = true;
+                    generateWordList(); // 重新生成单词列表
+                };
+
+                const saveSelection = () => {
+                    localStorage.setItem('selectedDictionary', selectedDictionary.value);
+                };
+
+                const play = (word) => {
+                    const url = `https://dict.youdao.com/dictvoice?type=0&audio=${word}`;
+                    console.log(url);
+                    const audio = new Audio(url);
+                    audio.play();
+                };
+
+                const isArray = (item)=>Array.isArray(item);
+
+                onMounted(() => {
+                    loadDictionaries().then(() => {
+                        loadSelection();
+                        loadDictionaryDetails();
+                    });
+                });
+
+                return {
+                    play,
+                    isArray,
+                    dictionaries,
+                    selectedDictionary,
+                    dictionaryDetails,
+                    loading,
+                    wordList,
+                    currentWord,
+                    currentWordDetails,
+                    showWordList,
+                    loadDictionaryDetails,
+                    showWordDetails,
+                    rememberWord,
+                    saveSelection
+                };
+            }
+        }).mount('#app');
+    </script>
+</body>
+
+</html>
