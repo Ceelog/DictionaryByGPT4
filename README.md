@@ -10,8 +10,6 @@
 
 - [MDX 词典](<./威威的GPT单词本(8000词).mdx>)
 
-![](./images/mdict.png)
-
 ## 前言
 
 以 ChatGPT 为代表的大语言模型在文本生成领域展示出来的强大能力让人们惊呼通用人工智能（AGI）即将降临，AI 将吞噬整个世界。
@@ -126,6 +124,7 @@
 
 ## 附录
 
+![](./images/mdict.png)
 ![](./images/0.png)
 ![](./images/1.png)
 ![](./images/2.png)
