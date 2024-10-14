@@ -124,7 +124,13 @@
 
 ## 附录
 
+### epub 电子书
+<img width="1024" alt="image" src="https://github.com/user-attachments/assets/32a4e0ac-35be-4abe-8bbc-3877c11baeda">
+
+### MDX词典
 ![](./images/mdict.png)
+
+### PDF
 ![](./images/0.png)
 ![](./images/1.png)
 ![](./images/2.png)
