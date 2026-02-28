@@ -23,6 +23,7 @@
             align-content: center;
             opacity: 0.05;
             transform: rotate(-45deg);
+            padding-top: 60px; /* 为固定的搜索框留出空间 */
           }
           code {
             display: block;
@@ -55,10 +56,46 @@
           p, li {
             font-size: 14px;
           }
+          .search-container {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+            background: #fff;
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            z-index: 1000; /* 确保搜索框在最上层 */
+          }
+          .search-container input {
+            padding: 5px;
+            width: 200px; /* 设置宽度 */
+            border: 1px solid #ccc;
+            border-radius: 4px;
+          }
+          .search-results {
+            margin-top: 5px;
+            max-width: 200px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            background: #f9f9f9;
+            display: none;
+          }
+          .search-results div {
+            padding: 5px;
+            cursor: pointer;
+          }
+          .search-results div:hover {
+            background: #e0e0e0;
+          }
       </style>
   </head>
   
   <body>
+      <div class="search-container">
+        <input type="text" id="searchInput" placeholder="搜索单词..." onkeyup="searchWords()">
+        <div class="search-results" id="searchResults"></div>
+      </div>
       <div class="container">
           <h1>A.M.</h1>
 <h3>分析词义</h3>
@@ -179171,5 +179208,43 @@
       </div>
   </div>
       </div>
+
+    <script>
+         // 为所有 h1 元素添加 id
+        document.querySelectorAll('h1').forEach((h1, index) => {
+            h1.id = `heading-${index + 1}`;
+        });
+        function searchWords() {
+            const input = document.getElementById('searchInput').value.toLowerCase();
+            const resultsContainer = document.getElementById('searchResults');
+            resultsContainer.innerHTML = ''; // 清空之前的搜索结果
+
+            // 词条列表
+             // 词条列表
+            const words = Array.from(document.querySelectorAll('h1')).map((h1, index) => ({
+                title: h1.textContent,
+                id: h1.id
+            }));
+
+            // 查找匹配的单词
+            const matches = words.filter(word => word.title.toLowerCase().includes(input));
+
+            // 显示匹配结果
+            if (matches.length > 0 && input) {
+                resultsContainer.style.display = 'block';
+                matches.forEach(match => {
+                    const div = document.createElement('div');
+                    div.textContent = match.title;
+                    div.onclick = () => {
+                        document.getElementById(match.id).scrollIntoView({ behavior: 'smooth' });
+                        resultsContainer.style.display = 'none'; // 点击后隐藏结果
+                    };
+                    resultsContainer.appendChild(div);
+                });
+            } else {
+                resultsContainer.style.display = 'none'; // 隐藏结果
+            }
+        }
+    </script>
   </body>
   </html>
